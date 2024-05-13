@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: '@project.parent.artifactId@'
+  profiles:
+    active: '@spring.profiles.active@'
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    locations: db/migration
+    clean-disabled: true
+prodia:
+  paging:
+    default-page: 1
+    default-page-size: 10
+    default-sort-direction: asc
+    max-page-size: 100
+  logging:
+    persistence: true
+    rest-api: true

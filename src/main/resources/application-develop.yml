@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    username: postgres
+    password: postgres
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      username: mongo
+      password: mongo
+      database: mongo
+      authentication-database: admin
+      auto-index-creation: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+  flyway:
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    user: postgres
+    password: postgres
+  security:
+    oauth2:
+      client:
+        registration:
+          ihs:
+            client-id: FYHLkybcvzNlbGkyJbggLRyHhgjPW9To5SXosrOxL7HqfYwC
+            client-secret: 6N58CeFMdefdNTgIM1PIfajM69283WA8QT3AebEgH1llrsv8wRlRgBukwv9bUo9M
+            authorization-grant-type: client_credentials
+        provider:
+          ihs:
+            token-uri: https://api-satusehat-stg.dto.kemkes.go.id/oauth2/v1/accesstoken?grant_type=client_credentials
+develop:
+  cors: localhost:8080
+  api-url: localhost:8080
+kfa2:
+  uri: https://api-satusehat-stg.dto.kemkes.go.id/kfa-v2/products/all
