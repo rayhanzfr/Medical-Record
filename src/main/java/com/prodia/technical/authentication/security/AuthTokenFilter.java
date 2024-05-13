@@ -35,7 +35,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   private final ObjectMapper objectMapper;
 
   @Setter(onMethod_ = @Autowired, onParam_ = @Lazy)
-  private UserService jobPortalUserService;
+  private UserService userService;
 
   private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -80,7 +80,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         if (org.apache.commons.lang3.StringUtils.isNotEmpty(username)
             && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-          UserDetails userDetails = jobPortalUserService.userDetailsService().loadUserByUsername(username);
+          UserDetails userDetails = userService.userDetailsService().loadUserByUsername(username);
           if (jwtService.isTokenValid(jwt, userDetails)) {
             SecurityContext context = SecurityContextHolder.createEmptyContext();
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

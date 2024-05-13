@@ -5,7 +5,8 @@ spring:
     password: postgres
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/mongo
+      host: 127.0.0.1
+      port: 27017
       username: mongo
       password: mongo
       database: mongo

@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     ports:
-      - '5432:5432'
+      - '5000:5432'
   mongo-db:
     image: mongo
     container_name: mongo-db
@@ -19,7 +19,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
     ports:
-      - "27017:27017"
+      - "20000:27017"
 
   technical:
     container_name: technical
@@ -27,18 +27,35 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '8081:8080'
+      - '8000:8080'
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_DATA_MONGODB_URI=mongodb://mongo-db:27017/mongo
+      - SPRING_DATA_MONGODB_HOST=mongo-db
+      - SPRING_DATA_MONGODB_PORT=27017
       - SPRING_DATA_MONGODB_USERNAME=mongo
       - SPRING_DATA_MONGODB_PASSWORD=mongo
+      - SPRING_DATA_MONGODB_DATABASE=mongo
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+      - SPRING_DATA_MONGODB_AUTO_INDEX_CREATION=true
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=FALSE
+      - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=FALSE
       - SPRING_FLYWAY_URL=jdbc:postgresql://psql-db:5432/postgres
       - SPRING_FLYWAY_USER=postgres
       - SPRING_FLYWAY_PASSWORD=postgres
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_IHS_CLIENT_ID=FYHLkybcvzNlbGkyJbggLRyHhgjPW9To5SXosrOxL7HqfYwC
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_IHS_CLIENT_SECRET=6N58CeFMdefdNTgIM1PIfajM69283WA8QT3AebEgH1llrsv8wRlRgBukwv9bUo9M
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_IHS_AUTHORIZATION_GRANT_TYPE=client_credentials
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_IHS_TOKEN_URI=https://api-satusehat-stg.dto.kemkes.go.id/oauth2/v1/accesstoken?grant_type=client_credentials
+      - KFA2_URI=https://api-satusehat-stg.dto.kemkes.go.id/kfa-v2/products/all
+      - PRODIA_PAGING_DEFAULT-PAGE=1
+      - PRODIA_PAGING_DEFAULT-PAGE-SIZE=10
+      - PRODIA_PAGING_DEFAULT-SORT-DIRECTION=asc
+      - PRODIA_PAGING_MAX-PAGE-SIZE=100
+      - PRODIA_LOGGING_PERSISTENCE=TRUE
+      - PRODIA_LOGGING-REST-API=TRUE
     depends_on:
       - psql-db
       - mongo-db
