@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  psql-db:
+    image: postgres
+    container_name: psql-db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+  mongo-db:
+    image: mongo
+    container_name: mongo-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+    ports:
+      - "27017:27017"
+
+  technical:
+    container_name: technical
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo-db:27017/mongo
+      - SPRING_DATA_MONGODB_USERNAME=mongo
+      - SPRING_DATA_MONGODB_PASSWORD=mongo
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_FLYWAY_URL=jdbc:postgresql://psql-db:5432/postgres
+      - SPRING_FLYWAY_USER=postgres
+      - SPRING_FLYWAY_PASSWORD=postgres
+    depends_on:
+      - psql-db
+      - mongo-db

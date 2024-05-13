@@ -16,7 +16,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "pro_diagnoses",
-    uniqueConstraints = {@UniqueConstraint(columnNames = {"medical_status_id","code"})})
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"medical_record_id","code"})})
 @Getter
 @Setter
 @NoArgsConstructor

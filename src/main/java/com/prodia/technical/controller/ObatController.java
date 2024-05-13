@@ -2,13 +2,9 @@ package com.prodia.technical.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prodia.technical.authentication.model.request.OAuth2Response;
-import com.prodia.technical.common.helper.ResponseHelper;
 import com.prodia.technical.common.model.request.PagingRequest;
-import com.prodia.technical.common.model.response.WebResponse;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
